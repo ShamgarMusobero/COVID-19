@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Map with Filtered Data Set</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <a class="navbar-brand" href="index.html">COVID-19 <img src="img/zimbabwe.png" alt="" srcset=""> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="info.html"> Information<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="deaths.html">Map</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Places</a>
+        </li>
+
+        </li>
+      </ul>
+    </div>
+  </nav>
+</body>
+<body>
+
+<p><h1>Places Affected  With CoronaVirus In Zimbabwe</h1>Stay Indoors</p>
+  <form id="form1" onchange="drawChart()">
+  <select id="thedropdown">
+  <option value="0">Choose Places With COVID-19:</option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option>
+</select>
+
+</form>
+    <div id="map_div"></div>
+    <table>
+    <thead><th>CoronaVirus</th><th>Places: Yes or No</th></thead>
+    <tbody id="mapanswer"></tbody>
+
+    </table>
+
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["map"]});
+      google.charts.setOnLoadCallback(drawChart);
+
+      //data is formatted for google map
+
+        var origData = [
+        ['Lat', 'Long', 'Name', 'Affected'],
+        [-17.820,31.050,'Harare','Yes'],
+		[-20.170,28.580,'Bulawayo','Yes'],
+		[-18.000,31.100,'Chitungwiza','No'],
+		[-18.970,32.650,'Mutare','No'],
+		[-19.450,29.820,'Gweru','No'],
+		[-18.330,29.910,'Kadoma','No'],
+		[-20.060,30.820,'Masvingo','No'],
+		[	-18.930,29.800,'Kwekwe','No'],
+		[-18.190,31.550,'Marondera','No'],
+		[-20.330,30.050,'Zvishavane','No'],
+		[	-17.360,30.180,'Chinhoyi','No'],
+		[	-18.370,26.500,'Hwange','No'],
+		[-18.130,30.140,'Chegutu','No'],
+		[-19.030,29.770,'Redcliffs','No'],
+		[-16.530,28.800,'Kariba','No'],
+		[-17.310,31.320,'Bindura','No'],
+		[-17.930,25.840,'Victoria Falls','No'],
+		[-18.980,32.620,'Sakubva','No'],
+		[-17.880,30.680,'Norton','No'],
+		[-16.820,29.680,'Karoi','No'],
+		[-18.530,32.120,'Rusape','No'],
+		[-19.660,30.000,'Shurugwi','No'],
+		[-21.050,31.660,'Chiredzi','No'],
+		[-20.490,27.810,'Plumtree','No'],
+		[-16.770,31.580,'Mount Darwin','No'],
+		[-20.200,32.620,'Chipinge','No'],
+		[-20.940,29.010,'Gwanda','No'],
+		[-21.920,29.200,'Tuli','No'],
+    [-18.210,32.740,'Nyanga','No'],
+		[	-19.810,32.860,'Chimanimani','No'],
+		[-19.020,30.890,'Chivhu','No'],
+		[-17.400,32.210,'Mutoko','No'],
+		[-20.010,30.520,'Gaths','No'],
+    [-21.050,29.350,'West Nicholson','No'],
+		[-19.290,30.520,'Mvuma','No'],
+		[-22.210,29.990,'Beitbridge','No'],
+    [-16.71317,30.36577,'Mondoro','Yes'],
+
+        ];
+
+
+
+        function drawChart() {
+
+        //form to change based on dropdown
+
+        selection = document.getElementById("thedropdown").value;
+
+        //if 0 selected, maps everything
+        if(selection == "0") {
+//writes origData to html for initial view, line by line with breaks
+        for(i=1; i<origData.length; i++) {
+        document.getElementById("mapanswer").innerHTML += "<tr><td>" + origData[i][2] + "</td><td>" + origData[i][3] + "</td></tr>";
+        } // end initial for
+
+        // creates visualization using newData array
+        var options = {
+        mapType: 'normal',
+        showInfoWindow: true,
+        }
+
+        var data = google.visualization.arrayToDataTable(origData);
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, options);
+        }
+
+
+        // if there is a selection
+        else {
+        //start a new array to include only data that is selected
+        var newData = [['Lat', 'Long', 'Name', 'Affected']];
+
+        //loop to go match selection and create a new array
+        for(i=1;i<origData.length; i++) {
+            if(origData[i][3] == selection){
+            // only data that meets the selection criteria goes into newData array
+            newData.push(origData[i]);
+
+            }//end if
+
+
+        }//end for
+
+        //clears out answer div in html
+
+        document.getElementById("mapanswer").innerHTML = " ";
+
+        //loop that writes the data in newData, line by line with breaks.
+        for(i=1; i<newData.length; i++) {
+        document.getElementById("mapanswer").innerHTML += "<tr><td>" + newData[i][2] + "</td><td>" + newData[i][3] + "</td></tr>";
+        }
+        var options = {
+        mapType: 'normal',
+        showInfoWindow: true,
+        }
+
+        // creates visualization using newData array
+        var data = google.visualization.arrayToDataTable(newData);
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, {showTip: true});
+
+      } // end else
+
+      }//end function
+    </script>
+
+
+    </body>
+
+ <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</html>
