@@ -52,3 +52,57 @@ tfoot td {
   font-style: italic;
   color: #8a97a0;
 }
+tr td:nth-child(4n+1) {
+  order: 1;
+}
+tr th{
+  order: 1;
+}
+tr td:nth-child(4n+2) {
+  order: 2;
+}
+tr td:nth-child(4n+3) {
+  order: 3;
+}
+tr td:nth-child(4n+4) {
+  order: 4;
+}
+
+tr th:nth-child(4n+2) {
+  order: 2;
+}
+tr th:nth-child(4n+3) {
+  order: 3;
+}
+tr th:nth-child(4n+4) {
+  order: 4;
+}
+#features {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+#features .feature-block {
+  background: #fff none repeat scroll 0 0;
+  padding: 30px 20px;
+  margin-bottom: 30px;
+  transition: all 0.5s ease-in-out 0s;
+}
+
+#features .feature-block:hover {
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease-in-out 0s;
+}
+
+#features .feature-block h4 {
+  margin-bottom: 20px;
+}
+
+#features .feature-block p {
+  margin-bottom: 0;
+}
+.dates{
+  text-align: center;
+  padding-top: 20px;
+}
