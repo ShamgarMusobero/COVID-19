@@ -69,8 +69,6 @@
       google.charts.load("current", {packages:["map"]});
       google.charts.setOnLoadCallback(drawChart);
 
-      //data is formatted for google map
-
         var origData = [
         ['Lat', 'Long', 'Name', 'Affected'],
         [-17.820,31.050,'Harare','Yes'],
@@ -108,27 +106,26 @@
 		[-20.010,30.520,'Gaths','No'],
     [-21.050,29.350,'West Nicholson','No'],
 		[-19.290,30.520,'Mvuma','No'],
-		[-22.210,29.990,'Beitbridge','No'],
+		[-22.210,29.990,'Beitbridge','Yes'],
     [-16.71317,30.36577,'Mondoro','Yes'],
-
+    [ -20.079191,30.838409,'Masvingo','Yes'],
+    
         ];
 
 
 
         function drawChart() {
 
-        //form to change based on dropdown
+    
 
         selection = document.getElementById("thedropdown").value;
 
-        //if 0 selected, maps everything
+       
         if(selection == "0") {
-//writes origData to html for initial view, line by line with breaks
+
         for(i=1; i<origData.length; i++) {
         document.getElementById("mapanswer").innerHTML += "<tr><td>" + origData[i][2] + "</td><td>" + origData[i][3] + "</td></tr>";
-        } // end initial for
-
-        // creates visualization using newData array
+        }
         var options = {
         mapType: 'normal',
         showInfoWindow: true,
@@ -140,27 +137,25 @@
         }
 
 
-        // if there is a selection
+    
         else {
-        //start a new array to include only data that is selected
+        
         var newData = [['Lat', 'Long', 'Name', 'Affected']];
 
-        //loop to go match selection and create a new array
+       
         for(i=1;i<origData.length; i++) {
             if(origData[i][3] == selection){
-            // only data that meets the selection criteria goes into newData array
             newData.push(origData[i]);
 
-            }//end if
+            }
 
 
-        }//end for
+        }
 
-        //clears out answer div in html
 
         document.getElementById("mapanswer").innerHTML = " ";
 
-        //loop that writes the data in newData, line by line with breaks.
+      
         for(i=1; i<newData.length; i++) {
         document.getElementById("mapanswer").innerHTML += "<tr><td>" + newData[i][2] + "</td><td>" + newData[i][3] + "</td></tr>";
         }
@@ -169,18 +164,62 @@
         showInfoWindow: true,
         }
 
-        // creates visualization using newData array
         var data = google.visualization.arrayToDataTable(newData);
         var map = new google.visualization.Map(document.getElementById('map_div'));
         map.draw(data, {showTip: true});
 
       } // end else
 
-      }//end function
+      }
     </script>
 
-Developer Shamgar Musobero +263779060176
+
     </body>
+    <footer class="container py-5">
+      <div class="row">
+        <div class="col-12 col-md">
+     
+          <small class="d-block mb-3 text-muted">&copy; 2020</small>
+          ZIM COVID Information
+        </div>
+        <div class="col-6 col-md">
+          <h5>Guidance and Counselling</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="http://www.csolutions.co.zw/">Harare Christian Counselling Center</a></li>
+            <li><a class="text-muted" href="https://www.christiancounsellingcentre.net/">Christian Counselling Centre</a></li>
+            <li><a class="text-muted" href="http://www.safricot.com/">Safricot</a></li>
+            <li><a class="text-muted" href="https://www.newlandsclinic.org.zw/index.php?id=54">Newlands</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Partner with us</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="mailto:happygem3@gmail.com?subject=Partnership">Mail</a></li>
+            
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Related Links</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="http://www.unicef.org/zimbabwe">UNICEF ZIMBABWE</a></li>
+            <li><a class="text-muted" href="http://www.who.int/countries/zwe/en/">WHO</a></li>
+            <li><a class="text-muted" href=http://www.unaids.org/en/regionscountries/countries/zimbabwe>UNFPA ZIMBABWE</a></li>
+            <li><a class="text-muted" href="http://www.unaids.org/en/regionscountries/countries/zimbabwe">UNAIDS ZIMBABWE</a></li>
+    
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Developer</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="#">Shamgar Musobero</a></li>
+            <li><a class="text-muted" href="#">+263779060176</a></li>
+            <li><a class="text-muted" href="mailto:happygem3@gmail.com">happygem3@gmail.com</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </footer>
+    
 
  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
